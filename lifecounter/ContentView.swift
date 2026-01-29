@@ -8,12 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var life1 = 20
+    @State private var life2 = 20
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            HStack {
+                playerView(name: "Player 1", life: $life1)
+                
+                playerView(name: "Player 2", life: $life2)
+                
+            }
         }
         .padding()
     }
