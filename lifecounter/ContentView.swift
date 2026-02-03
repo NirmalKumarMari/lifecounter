@@ -15,7 +15,7 @@ struct ContentView: View {
     var body: some View {
         VStack {
             HStack {
-                playerView(name: "Player 1", life: $life1)
+                playerView(name: "Player 12", life: $life1)
                 
                 playerView(name: "Player 2", life: $life2)
                 
