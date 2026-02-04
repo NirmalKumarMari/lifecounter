@@ -44,57 +44,58 @@ struct ContentView: View {
     
     var body: some View {
         NavigationStack{
-            VStack {
-                HStack{
+            ScrollView {
+                VStack {
                     HStack{
-                        Button("Remove Player") {removePlayer()}
-                        Button("Add Player") {addPlayer()}
-                    }
-                    .disabled(start)
-                    NavigationLink{
-                        History(history: history)
-                    } label: {
-                        Text("History")
-                    }
-                }
-                .buttonStyle(.bordered)
-                LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach($players) { $player in
-                        PlayerView(
-                            name: $player.name, life: $player.life,
-                            start: $start,
-                        history: $history)
-                    }
-                }
-                Button("Reset"){
-                    
-                    if players.count > 4 {
-                        players.removeLast(players.count - 4)
-                    } else if players.count < 4 {
-                        for _ in 0..<((players.count - 4) * -1) {
-                            
-                            addPlayer()
-                            
+                        HStack{
+                            Button("Remove Player") {removePlayer()}
+                            Button("Add Player") {addPlayer()}
+                        }
+                        .disabled(start)
+                        NavigationLink{
+                            History(history: history)
+                        } label: {
+                            Text("History")
                         }
                     }
-                    
-                    for i in 0..<players.count {
-                        players[i].life = 20
-                        players[i].name = "Player \(i+1)"
+                    .buttonStyle(.bordered)
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        ForEach($players) { $player in
+                            PlayerView(
+                                name: $player.name, life: $player.life,
+                                start: $start,
+                                history: $history)
+                        }
                     }
-                    start = false
-                    history = []
+                    Button("Reset"){
+                        
+                        if players.count > 4 {
+                            players.removeLast(players.count - 4)
+                        } else if players.count < 4 {
+                            for _ in 0..<((players.count - 4) * -1) {
+                                
+                                addPlayer()
+                                
+                            }
+                        }
+                        
+                        for i in 0..<players.count {
+                            players[i].life = 20
+                            players[i].name = "Player \(i+1)"
+                        }
+                        start = false
+                        history = []
+                    }
+                    .buttonStyle(.bordered)
                 }
-                .buttonStyle(.bordered)
-            }
-            .padding()
-            .overlay {
-                if gameOver && start {
+                .padding()
+                .overlay {
+                    if gameOver && start {
                         VStack(spacing: 16) {
                             Text("Game over!")
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
-
+                            
                             Button("OK") {
                                 
                                 if players.count > 4 {
@@ -117,7 +118,8 @@ struct ContentView: View {
                         }
                         .background(.ultraThinMaterial)
                         .padding()
-                    
+                        
+                    }
                 }
             }
             
